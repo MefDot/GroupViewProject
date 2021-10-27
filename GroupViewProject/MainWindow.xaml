@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GroupViewProject"
         mc:Ignorable="d"
-        Title="Group View" Height="528.061" Width="457.908">
+        Title="Group View" Height="528.061" Width="699.908">
     <Canvas>
         <Label Content="Название специальности:" Canvas.Left="104" Canvas.Top="68" />
         <TextBox x:Name="tbNameGroup" Height="33" Width="230" Canvas.Left="104" Canvas.Top="99" />
@@ -13,6 +13,11 @@
         <TextBox x:Name="tbCurator" Height="33" Width="230" Canvas.Left="104" Canvas.Top="259" />
         <Label Content="Номер группы:" Canvas.Left="104" Canvas.Top="150" />
         <Label Content="ФИО Куратора:" Canvas.Left="104" Canvas.Top="233" />
-        <Button x:Name="btnAdd" Content="Добавить" Height="44" Width="180" Canvas.Left="124" Canvas.Top="330" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+        <Button x:Name="btnAdd" Content="Добавить" Height="44" Width="180" Canvas.Left="129" Canvas.Top="355" VerticalAlignment="Top" HorizontalAlignment="Center" Click="btnAdd_Click"/>
+
+        <ListView x:Name="lvViewGroup"  Height="300" Width="269" Canvas.Left="379" Canvas.Top="99" DisplayMemberPath="NumberGroup" >
+            
+        </ListView>
+        <Label Content="Список групп:" Canvas.Left="379" Canvas.Top="73" />
     </Canvas>
 </Window>

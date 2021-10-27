@@ -11,11 +11,18 @@ namespace GroupViewProject
     class Main
     {
 
+        // Строка подключения к БД
         string strConnection = @"Data Source=DESKTOP-MU6UFKI\SQLEXPRESS;Initial Catalog=groupall;Integrated Security=True";
+        
+        /// <summary>
+        /// Добавления данных о группе 
+        /// </summary>
+        /// <param name="group"> Класс Group</param>
         public void AddGroup (Group group)
         {
+            // 
             string SqlCmd = $"INSERT INTO [dbo].[group] ([NameGroup],[NumberGroup],[CuratorGroup]) " +
-                $"VALUES ({group.NameGroup},{group.NumberGroup},{group.CuratorGroup})";
+                $"VALUES ('{group.NameGroup}','{group.NumberGroup}','{group.CuratorGroup}')";
 
             try
             {
@@ -35,10 +42,59 @@ namespace GroupViewProject
             }
         }
 
+
+
+
+        /// <summary>
+        /// Чтения данных из таблицы group
+        /// </summary>
+        /// <returns></returns>
+        public List<Group> ReadGroup()
+        {
+            string SqlCmd = "SELECT * FROM [dbo].[group]";
+            List<Group> groups = new List<Group>();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(strConnection))
+                {
+
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand(SqlCmd, connection);
+
+                    // Получаем строки из таблицы
+                    SqlDataReader sqlDataReader = cmd.ExecuteReader();
+
+                    
+                    if (sqlDataReader.HasRows)
+                    {
+                        // Построчно считываем данные
+                        while (sqlDataReader.Read())
+                        {
+                            groups.Add(new Group()
+                            {
+                                NameGroup = sqlDataReader.GetString(1),
+                                NumberGroup = sqlDataReader.GetString(2),
+                                CuratorGroup = sqlDataReader.GetString(3)
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message);
+            }
+
+            return groups;
+        }
     }
 
 
 
+    /// <summary>
+    ///  Описание таблицы из БД
+    /// </summary>
     class Group
     {
         public int idGroup { get; set; }
